@@ -4,6 +4,6 @@ source .python_env_lnx/bin/activate
 pip install pip -U
 pip install uv -U
 uv pip install Pillow numpy stable_baselines3 sb3_contrib
-cd models
+cd models || exit
 ./getmodels.sh
-cd ../
+cd ../ || exit

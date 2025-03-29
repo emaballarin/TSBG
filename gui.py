@@ -32,7 +32,7 @@ class GameGUI:
         self.w_factor = self.screen_width * 1.1 / 2560
         self.h_factor = self.screen_height * 1.1 / 1440
         self.loc_list = [
-            (225, 100),
+            (225, 100),  # 1
             (311, 189),
             (412, 205),
             (515, 295),
@@ -48,15 +48,15 @@ class GameGUI:
             (802, 205),
             (826, 300),
             (875, 488),
-            (710, 740),
-            (852, 60),
+            (710, 740),  # 17
+            (852, 60),  # 18
             (940, 220),
-            (1012, 550),
+            (1012, 550),  # 20
             (940, 675),
-        ]  # 21
+        ]
         for i in range(len(self.loc_list)):
             self.loc_list[i] = (
-                int(self.w_factor * self.loc_list[i][0]),  # type: ignore
+                int(self.h_factor * self.loc_list[i][0]),  # type: ignore
                 int(0.7 * 0.88 * self.screen_height)
                 - int(self.h_factor * self.loc_list[i][1]),
             )
@@ -71,9 +71,17 @@ class GameGUI:
             side="top", anchor="ne"
         )
 
-        marco_img = [Image.open(f"./img/marco_{i}.jpg") for i in range(IMG_VARIABILITY_MM)]
-        alpha_marco = [marco_img[i].size[0] / marco_img[i].size[1] for i in range(IMG_VARIABILITY_MM)]
-        img_size_marco = [(int(0.7 * window_height * alpha_marco[i]), int(0.7 * window_height)) for i in range(IMG_VARIABILITY_MM)]
+        marco_img = [
+            Image.open(f"./img/marco_{i}.jpg") for i in range(IMG_VARIABILITY_MM)
+        ]
+        alpha_marco = [
+            marco_img[i].size[0] / marco_img[i].size[1]
+            for i in range(IMG_VARIABILITY_MM)
+        ]
+        img_size_marco = [
+            (int(0.7 * window_height * alpha_marco[i]), int(0.7 * window_height))
+            for i in range(IMG_VARIABILITY_MM)
+        ]
         for i in range(IMG_VARIABILITY_MM):
             marco_img[i] = marco_img[i].resize(img_size_marco[i])
 
@@ -85,21 +93,42 @@ class GameGUI:
         )
         mappa_img = mappa_img.resize(img_size_mappa)
 
-        win_img = [Image.open(f"./img/escaped_{i}.png") for i in range(IMG_VARIABILITY_ESC)]
-        alpha_win = [win_img[i].size[0] / win_img[i].size[1] for i in range(IMG_VARIABILITY_ESC)]
-        img_size_win = [(int(0.6 * window_height * alpha_win[i]), int(0.6 * window_height)) for i in range(IMG_VARIABILITY_ESC)]
+        win_img = [
+            Image.open(f"./img/escaped_{i}.png") for i in range(IMG_VARIABILITY_ESC)
+        ]
+        alpha_win = [
+            win_img[i].size[0] / win_img[i].size[1] for i in range(IMG_VARIABILITY_ESC)
+        ]
+        img_size_win = [
+            (int(0.6 * window_height * alpha_win[i]), int(0.6 * window_height))
+            for i in range(IMG_VARIABILITY_ESC)
+        ]
         for i in range(IMG_VARIABILITY_ESC):
             win_img[i] = win_img[i].resize(img_size_win[i])
 
-        lose_img = [Image.open(f"./img/captured_{i}.jpg") for i in range(IMG_VARIABILITY_CAP)]
-        alpha_lose = [lose_img[i].size[0] / lose_img[i].size[1] for i in range(IMG_VARIABILITY_CAP)]
-        img_size_lose = [(int(0.6 * window_height * alpha_lose[i]), int(0.6 * window_height)) for i in range(IMG_VARIABILITY_CAP)]
+        lose_img = [
+            Image.open(f"./img/captured_{i}.jpg") for i in range(IMG_VARIABILITY_CAP)
+        ]
+        alpha_lose = [
+            lose_img[i].size[0] / lose_img[i].size[1]
+            for i in range(IMG_VARIABILITY_CAP)
+        ]
+        img_size_lose = [
+            (int(0.6 * window_height * alpha_lose[i]), int(0.6 * window_height))
+            for i in range(IMG_VARIABILITY_CAP)
+        ]
         for i in range(IMG_VARIABILITY_CAP):
             lose_img[i] = lose_img[i].resize(img_size_lose[i])
 
-        self.marco_img_data = [ImageTk.PhotoImage(marco_img[i]) for i in range(IMG_VARIABILITY_MM)]
-        self.win_img_data = [ImageTk.PhotoImage(win_img[i]) for i in range(IMG_VARIABILITY_ESC)]
-        self.lose_img_data = [ImageTk.PhotoImage(lose_img[i]) for i in range(IMG_VARIABILITY_CAP)]
+        self.marco_img_data = [
+            ImageTk.PhotoImage(marco_img[i]) for i in range(IMG_VARIABILITY_MM)
+        ]
+        self.win_img_data = [
+            ImageTk.PhotoImage(win_img[i]) for i in range(IMG_VARIABILITY_ESC)
+        ]
+        self.lose_img_data = [
+            ImageTk.PhotoImage(lose_img[i]) for i in range(IMG_VARIABILITY_CAP)
+        ]
         self.mappa_img_data = ImageTk.PhotoImage(mappa_img)
         self.pos_r = int(img_size_mappa[1] / 37)
         self.pictures = []
@@ -111,7 +140,12 @@ class GameGUI:
         tk.Label(
             self.initial_layout, text=start_txt, font=self.main_font, justify="left"
         ).grid(row=0, column=0, columnspan=2, pady=(0, 7))
-        self.pictures.append(tk.Label(self.initial_layout, image=self.marco_img_data[random.randrange(0, IMG_VARIABILITY_MM)]))
+        self.pictures.append(
+            tk.Label(
+                self.initial_layout,
+                image=self.marco_img_data[random.randrange(0, IMG_VARIABILITY_MM)],
+            )
+        )
         self.pictures[0].grid(row=1, column=0, columnspan=2, pady=7)
         tk.Button(
             self.initial_layout,
@@ -244,7 +278,15 @@ class GameGUI:
         )
         self.infoSet = []
         for i in range(21):
-            self.infoSet.append(self.create_circle(self.map_canvas, self.loc_list[i][0]-2, self.loc_list[i][1]-2, self.pos_r, 'magenta'))
+            self.infoSet.append(
+                self.create_circle(
+                    self.map_canvas,
+                    self.loc_list[i][0] - 2,
+                    self.loc_list[i][1] - 2,
+                    self.pos_r,
+                    "magenta",
+                )
+            )
         self.map_canvas.grid(row=0, column=0, columnspan=5, pady=(0, 7))
         self.game_labels = (
             tk.Label(
@@ -296,7 +338,9 @@ class GameGUI:
             ),
         )
         for i in range(4):
-            self.game_buttons[i].grid(row=5, column=i, rowspan=2, sticky="w", pady=7, padx=(0, 12))
+            self.game_buttons[i].grid(
+                row=5, column=i, rowspan=2, sticky="w", pady=7, padx=(0, 12)
+            )
         self.game_labels[0].grid(row=5, column=4, sticky="w")
         self.show_infoSet = tk.IntVar()
         self.show_infoSet.set(0)
@@ -342,7 +386,12 @@ class GameGUI:
         )
         for i in range(4):
             self.path_labels[i].grid(row=i + 1, column=0, sticky="w")
-        self.pictures.append(tk.Label(self.lose_layout, image=self.lose_img_data[random.randrange(0, IMG_VARIABILITY_CAP)]))
+        self.pictures.append(
+            tk.Label(
+                self.lose_layout,
+                image=self.lose_img_data[random.randrange(0, IMG_VARIABILITY_CAP)],
+            )
+        )
         self.pictures[2].grid(row=5, column=0, pady=7)
         tk.Button(
             self.lose_layout,
@@ -415,13 +464,13 @@ class GameGUI:
         if self.show_infoSet.get():
             infoS = self.game.getMrXPos()
             for i in range(21):
-                if i+1 in infoS:
-                    self.map_canvas.itemconfigure(self.infoSet[i], state='normal')
+                if i + 1 in infoS:
+                    self.map_canvas.itemconfigure(self.infoSet[i], state="normal")
                 else:
-                    self.map_canvas.itemconfigure(self.infoSet[i], state='hidden')
+                    self.map_canvas.itemconfigure(self.infoSet[i], state="hidden")
         else:
             for i in range(21):
-                self.map_canvas.itemconfigure(self.infoSet[i], state='hidden')
+                self.map_canvas.itemconfigure(self.infoSet[i], state="hidden")
 
     def switch_to_pre_game_layout(self):
         detective_loc = random.sample(range(1, 22), 3)
@@ -441,9 +490,13 @@ class GameGUI:
                 self.tickets = [8, 5, 3]
             else:
                 self.tickets = [6, 3, 1]
-            self.tickets_fake_buttons[0].configure(text=f"Bicicletta\n({self.tickets[0]})")
+            self.tickets_fake_buttons[0].configure(
+                text=f"Bicicletta\n({self.tickets[0]})"
+            )
             self.tickets_fake_buttons[1].configure(text=f"Autobus\n({self.tickets[1]})")
-            self.tickets_fake_buttons[2].configure(text=f"Traghetto\n({self.tickets[2]})")
+            self.tickets_fake_buttons[2].configure(
+                text=f"Traghetto\n({self.tickets[2]})"
+            )
             self.game_buttons[0].configure(
                 text=f"Bicicletta\n({self.tickets[0]})", state="normal"
             )
@@ -647,8 +700,12 @@ class GameGUI:
             self.win_layout.pack_forget()
         else:
             self.lose_layout.pack_forget()
-        self.pictures[0].configure(image=self.marco_img_data[random.randrange(0, IMG_VARIABILITY_MM)])
-        self.pictures[2].configure(image=self.lose_img_data[random.randrange(0, IMG_VARIABILITY_CAP)])
+        self.pictures[0].configure(
+            image=self.marco_img_data[random.randrange(0, IMG_VARIABILITY_MM)]
+        )
+        self.pictures[2].configure(
+            image=self.lose_img_data[random.randrange(0, IMG_VARIABILITY_CAP)]
+        )
         self.pictures[0].update()
         self.pictures[2].update()
         self.initial_layout.pack()
@@ -658,6 +715,7 @@ class GameGUI:
 
     def quit(self):
         self.window.destroy()
+
 
 if __name__ == "__main__":
     game_gui = GameGUI()
