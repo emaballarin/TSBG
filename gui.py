@@ -32,7 +32,7 @@ class GameGUI:
         self.w_factor = self.screen_width * 1.1 / 2560
         self.h_factor = self.screen_height * 1.1 / 1440
         self.loc_list = [
-            (225, 100),  # 1
+            (225, 100),
             (311, 189),
             (412, 205),
             (515, 295),
@@ -48,10 +48,10 @@ class GameGUI:
             (802, 205),
             (826, 300),
             (875, 488),
-            (710, 740),  # 17
-            (852, 60),  # 18
+            (710, 740),
+            (852, 60),
             (940, 220),
-            (1012, 550),  # 20
+            (1012, 550),
             (940, 675),
         ]
         for i in range(len(self.loc_list)):
@@ -410,12 +410,12 @@ class GameGUI:
         )
 
     def nearest_loc(self, x, y):
-        dist = 1200  # initially: max acceptable squared distance
+        dist = (
+            self.screen_width**2 + self.screen_height**2
+        ) * 1.13e-4  # squared diagonal scale factor
         loc = None
         for i in range(len(self.loc_list)):
-            new_dist = ((self.loc_list[i][0] - x) / self.w_factor) ** 2 + (
-                (self.loc_list[i][1] - y) / self.h_factor
-            ) ** 2
+            new_dist = (self.loc_list[i][0] - x) ** 2 + (self.loc_list[i][1] - y) ** 2
             if new_dist < dist:
                 dist = new_dist
                 loc = i + 1
