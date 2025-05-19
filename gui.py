@@ -27,7 +27,7 @@ class GameGUI:
         self.window.attributes("-fullscreen", True)
         self.screen_width = self.window.winfo_screenwidth()
         self.screen_height = self.window.winfo_screenheight()
-        self.main_font = Font(family="Tahoma", size=13, weight="bold")
+        self.main_font = Font(family="Arial", size=13, weight="bold")
         self.detective_starting_loc = None
         self.w_factor = self.screen_width * 1.1 / 2560
         self.h_factor = self.screen_height * 1.1 / 1440
@@ -632,7 +632,7 @@ class GameGUI:
 
     def update_detective(self, detective_loc):
         for i in range(3):
-            new = " → " + (
+            new = " -> " + (
                 str(detective_loc[i])
                 if detective_loc[i] > 9
                 else (" " + str(detective_loc[i]) + " ")
