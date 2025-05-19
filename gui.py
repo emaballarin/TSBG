@@ -659,9 +659,9 @@ class GameGUI:
         else:
             transport = "nave"
         prev = self.game_labels[4]["text"]
-        self.game_labels[4].configure(text=prev + " — " + transport)
+        self.game_labels[4].configure(text=prev + " -- " + transport)
         prev = self.path_labels[3]["text"]
-        self.path_labels[3].configure(text=prev + " — " + transport)
+        self.path_labels[3].configure(text=prev + " -- " + transport)
         self.game_labels[4].update()
         self.path_labels[3].update()
 
